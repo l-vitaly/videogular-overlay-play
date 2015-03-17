@@ -36,7 +36,7 @@
       scope: true,
       template: '<div class="overlayPlayContainer" ng-click="onClickOverlayPlay()">' +
       '<div class="iconButton" ng-class="overlayPlayIcon"></div>' +
-      '<div class="overlayPlayText" ng-if="overlayText" ng-hide="isAlreadyPlayed" ng-bind="overlayText"></div>' +
+      '<div class="overlayPlayText" ng-if="overlayText" ng-hide="isAlreadyPlayed"><span ng-bind="overlayText"></span></div>' +
       '</div>',
       link: linkFunc
     };
