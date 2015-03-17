@@ -23,7 +23,7 @@
   "use strict";
 
   angular.module('dreamteam.videogular.plugins.overlayplay', [])
-    .directive('vgOverlayPlay', VgOverlayPlay)
+      .directive('vgOverlayPlay', VgOverlayPlay)
   ;
 
   VgOverlayPlay.$inject = ['VG_STATES'];
@@ -36,23 +36,17 @@
       scope: true,
       template: '<div class="overlayPlayContainer" ng-click="onClickOverlayPlay()">' +
       '<div class="iconButton" ng-class="overlayPlayIcon"></div>' +
+      '<div class="overlayPlayText" ng-if="overlayText" ng-hide="isAlreadyPlayed"><span ng-bind="overlayText"></span></div>' +
       '</div>',
       link: linkFunc
     };
 
     function linkFunc(scope, elem, attr, controllerAPI) {
 
-      function onComplete(target, params) {
-        scope.overlayPlayIcon = {play: true};
-      }
-
-      function onPlay(target, params) {
-        scope.overlayPlayIcon = {};
-      }
-
       function onChangeState(newState) {
         switch (newState) {
           case VG_STATES.PLAY:
+            scope.isAlreadyPlayed = true;
             scope.overlayPlayIcon = {};
             break;
 
@@ -61,6 +55,7 @@
             break;
 
           case VG_STATES.STOP:
+            scope.isAlreadyPlayed = false;
             scope.overlayPlayIcon = {play: true};
             break;
         }
@@ -71,16 +66,18 @@
       };
 
       scope.overlayPlayIcon = {play: true};
+      scope.isAlreadyPlayed = false;
+      scope.overlayText = attr.vgText || false;
 
       scope.$watch(
-        function () {
-          return controllerAPI.currentState;
-        },
-        function (newVal, oldVal) {
-          if (newVal != oldVal) {
-            onChangeState(newVal);
+          function () {
+            return controllerAPI.currentState;
+          },
+          function (newVal, oldVal) {
+            if (newVal !== oldVal) {
+              onChangeState(newVal);
+            }
           }
-        }
       );
     }
   }
