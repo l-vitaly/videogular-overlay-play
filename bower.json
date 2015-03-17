@@ -1,0 +1,8 @@
+{
+  "name": "vg-overlay-play",
+  "version": "1.0.0",
+  "main": "./overlay-play.js",
+  "dependencies": {
+    "videogular": "~0.7.2"
+  }
+}
