@@ -14,7 +14,7 @@ var uglify = require('gulp-uglify');
  *
  **/
 gulp.task('build', function () {
-    gulp.src('overlay-play.js')
+    gulp.src('src/*.js')
         .pipe(uglify())
         .pipe(gulp.dest('dist'))
 });
